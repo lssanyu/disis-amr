@@ -1,0 +1,137 @@
+.logo{
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: rgb(35, 52, 125);
+    background-clip: border-box;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+}
+.login-sidebar{
+  background-color: rgb(35, 52, 125);
+}
+.main-sidebar{
+	/*border: 1px solid red;*/
+	min-height: 58rem;
+	position: absolute;
+	background-color: rgb(35, 52, 125);
+	width: 17%; 
+	float: left;
+}
+.side-title{
+ color: #343a40;
+ align-self: center;
+ font-weight: bolder;
+ font-size: 20px;
+ min-height: 4.4rem;
+ /*padding-top: 1rem;*/
+ margin-bottom: 0px;
+ /*font-family:monospace, fantasy, cursive;*/
+}
+.login-sidebar, .login-a{
+	align-items: center;
+	border: none; 
+	color: #343a40;
+	font-size: 15px;
+  top: -29px;
+	/*font-family:monospace; fantasy, cursive;*/
+}
+.login-a:hover{
+	text-decoration: none;
+}
+.dropdown-container{
+  display: none;
+  padding-left: 8px;
+	background-color: rgb(35, 52, 125);
+	left: 120px
+
+}
+
+#dropdown-container li {
+  background-color: gray;
+}
+/* sidenav, full height */
+.sidenav {
+  height: 100%;
+  width: 200px;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  /* background-color: #111; 
+  overflow-x: hidden;
+  padding-top: 20px;*/
+}
+
+/* Style the sidenav links and the dropdown button */
+.sidenav a, .dropdown-btn {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 15px;
+  color: #fff;
+  display: block;
+  border: none;
+  background: none;
+  width:100%;
+  text-align: left;
+  cursor: pointer;
+  outline: none;
+  /*font-family: cursive;*/
+}
+
+/* On mouse-over */
+.sidenav a:hover, .dropdown-btn:hover {
+  color: #f1f1f1;
+}
+
+
+/* Add an active class to the active dropdown button */
+.active {
+  color: white;
+}
+
+/* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
+
+
+/* Optional: Style the caret down icon */
+.fa-caret-down {
+  float: right;
+  padding-right: 8px;
+}
+ul.dropdown-container {
+  margin-left: 0px;
+  padding-left: 0px;
+ }
+ul.dropdown-container li a p{
+ color: #fff;
+ text-decoration: none;
+ margin-left: 15px;
+ /*font-family: cursive;*/
+}
+ul.dropdown-container li a:hover{
+  color: #182579;
+  text-decoration: none;
+ }
+ ul.dropdown-container li:hover{
+  color: gray;
+  list-style-type: none;
+  background-color: #4E4E50;
+ }
+ ul.dropdown-container li a p{
+  height: 2.4rem;
+  padding: 9px 0px 0px 10px;
+  margin: 0px 0px 0px 20px;
+ }
+ ul.dropdown-container li{
+  padding-top: 0px;
+  margin-top: 0px;
+  padding-bottom: 0px;
+  margin-bottom: 0px;
+ }
+.bc{
+  background-color: red;
+}

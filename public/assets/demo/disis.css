@@ -1,0 +1,254 @@
+.dropbtn {
+  color: black;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+  color: #2980B9;
+  border: none;
+  text-decoration: none;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  min-width: 1rem;
+  overflow: auto;
+  z-index: 1;
+  margin-bottom: -16px;
+}
+
+.dropdown-content a {
+  color: black;
+  text-decoration: none;
+  display: block;
+}
+.dropdown-item {
+    padding: 0.25rem 0.6rem;
+}
+.show {
+  display: block;
+  border: none;
+}
+
+/*  */
+
+* {
+  box-sizing: border-box;
+}
+*:before, *:after{
+  box-sizing: border-box;
+}
+body, html{
+  height: 100%;
+  width: 100%;
+  min-width: 993px;
+  position: relative;
+  /*font-family: cursive, monospace; */
+}
+ .main-container {
+  min-height: 100vh;
+  overflow: hidden;
+  display: block;
+  position: relative;
+  padding-bottom: 100px;
+
+ }
+#container{
+  position: relative;
+}
+.container {
+    padding-right: 0px;
+    padding-left: 0px;
+    margin-right: 15px;
+    margin-left: 0px;
+}
+.logic{
+  width: 19rem;
+  /*font-family: cursive;*/
+  color: red;
+  margin: 0px;
+  padding: 0px;
+}
+.logic input{
+  width: 16rem;
+  border-radius: 5px;
+  margin: 18px;
+  /*font-family: cursive;*/
+  border: 1px solid grey;
+   
+}
+.logic input[type='submit']{
+  width: 6rem;
+  margin-left: 6rem;
+   
+}
+.icon-image{
+      width: 17px;
+}
+.div-footer{
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  margin-right: 15px !important;
+}
+.clearfooter, .clear-div{
+  height: 10px;
+  clear: both;
+}
+.col-sm-12{
+  position: relative;
+}
+.card-footer {
+    padding: .25rem 1.25rem;
+    background-color: rgba(0,0,0,.03);
+    border-top: 1px solid rgba(0,0,0,.125);
+}
+
+footer.footer{
+  font-size: 12px;
+  padding: 12px;
+  margin-right: 15px;
+  background-color: #182579;
+  left: 0px;
+  right: 0px;
+  z-index: 4;
+  align-content: center;
+  clear: both;
+  color: #ffff;
+}
+footer.footer .footer_color a{
+  color: #ffff;
+}
+.tim-row {
+  margin-bottom: 20px;
+}
+
+.tim-white-buttons {
+  background-color: #777777;
+}
+
+.typography-line {
+  padding-left: 25%;
+  margin-bottom: 35px;
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
+.typography-line span {
+  bottom: 10px;
+  color: #c0c1c2;
+  display: block;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 13px;
+  left: 0;
+  position: absolute;
+  width: 260px;
+  text-transform: none;
+}
+
+.tim-row {
+  padding-top: 60px;
+}
+
+.tim-row h3 {
+  margin-top: 0;
+}
+
+.offline-doc .page-header {
+  display: flex;
+  align-items: center;
+}
+
+.offline-doc .footer {
+  position: absolute;
+  width: 100%;
+  background: transparent;
+  bottom: 0;
+  color: #fff;
+  z-index: 1;
+}
+
+@media all and (min-width: 992px) {
+  .sidebar .nav>li.active-pro {
+    position: absolute;
+    width: 100%;
+    bottom: 10px;
+  }
+}
+@media (min-width: 1200px){
+  .container 
+{
+    max-width: 100%;
+}
+}
+
+
+.card.card-upgrade .card-category {
+  max-width: 530px;
+  margin: 0 auto;
+}
+
+.footer p {
+  color: black
+}
+
+/* Main content */
+.main {
+  margin-left: 200px; /* Same as the width of the sidenav */
+  font-size: 20px; /* Increased text to enable scrolling */
+  padding: 0px 10px;
+}
+
+ /*graphs css*/
+       .highcharts-figure, .highcharts-data-table table {
+            min-width: 310px; 
+             margin: 1em auto;
+             max-width: 100%;
+        }
+        .Highcharts-graph-container{
+          width: 100% !important;
+        }
+        #container {
+            height: auto;
+        }
+
+        .highcharts-data-table table {
+            /*font-family: Verdana, sans-serif;*/
+            border-collapse: collapse;
+            border: 1px solid #EBEBEB;
+            margin: 10px auto;
+            text-align: center;
+            width: 100%;
+            max-width: 500px;
+        }
+        .highcharts-data-table caption {
+            padding: 1em 0;
+            font-size: 1.2em;
+            color: #555;
+        }
+        .highcharts-data-table th {
+            font-weight: 600;
+            padding: 0.5em;
+        }
+        .highcharts-data-table td, .highcharts-data-table th, .highcharts-data-table caption {
+            padding: 0.5em;
+        }
+        .highcharts-data-table thead tr, .highcharts-data-table tr:nth-child(even) {
+            background: #f8f8f8;
+        }
+        .highcharts-data-table tr:hover {
+            background: #f1f7ff;
+        }
+ /*end graphs css*/
