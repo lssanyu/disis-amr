@@ -36,10 +36,7 @@ class HomeController extends Controller
          $totalsData = array( 'totalPeriods'=>$totalPeriods, 'totalIsolates'=>$totalIsolates, 'totalTypes'=>$totalTypes, 'totalFacilities'=>$totalFacilities, 'facilityNames'=>$facilityNames, 'specimenNames'=>$specimenNames,'periods'=>$periods,'allOrganisms'=>$allOrganisms);
 
         return view('layouts.home',$totalsData);
-    }    
-  
-
-
+    }
 
   
 }
