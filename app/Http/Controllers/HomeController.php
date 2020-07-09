@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Pathogen;
 
 class HomeController extends Controller
 {
@@ -21,69 +22,21 @@ class HomeController extends Controller
         return view('amr_surveillance');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function home()
     {
-        //
-    }
+         $totalIsolates = Pathogen::distinct('Numberofisolates')->sum('Numberofisolates'); 
+         $totalFacilities = Pathogen::distinct('Facility')->pluck('Facility')->count(); 
+         $facilityNames = Pathogen::distinct('Facility')->pluck('Facility'); 
+         $totalTypes =Pathogen::distinct('Specimentype')->pluck('Specimentype')->count(); 
+         $specimenNames =Pathogen::distinct('Specimentype')->pluck('Specimentype'); 
+         $totalPeriods =Pathogen::distinct('ReportingPeriod')->pluck('ReportingPeriod')->count(); 
+         $periods =Pathogen::distinct('ReportingPeriod')->pluck('ReportingPeriod');    
+         $allOrganisms =  Pathogen::distinct('Organism')->pluck('Organism');   
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+         $totalsData = array( 'totalPeriods'=>$totalPeriods, 'totalIsolates'=>$totalIsolates, 'totalTypes'=>$totalTypes, 'totalFacilities'=>$totalFacilities, 'facilityNames'=>$facilityNames, 'specimenNames'=>$specimenNames,'periods'=>$periods,'allOrganisms'=>$allOrganisms);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+        return view('layouts.home',$totalsData);
+    }   
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+  
 }

@@ -7,7 +7,7 @@
  */
 .banner img {background-color: rgb(4, 56, 158);padding:15px;margin:20px;}
 
-.header-banner{width:100%; overflow:auto; margin-bottom: 10px;  background-color: rgb(35, 52, 125); /*border:1px solid red;*/}
+.header-banner{width:100%; overflow:auto; margin-bottom: 10px;  background-color: #0a90d4; /*border:1px solid red;*/}
 .header-banner-inner-res{display:none;}
 .header-banner-inner{width:75%; overflow:auto; margin:auto; padding:10px; /*background-color:#F4F5F7;*/ /*border:1px solid blue;*/ }
 

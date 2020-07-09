@@ -27,12 +27,29 @@ class AMRController extends Controller
     public function index()
     {
         // samplewith growth
-        $facility_growth = "Arua";
+        $facility_growth = "Mbale";
         //select the facilities available
+        
+         $totalIsolates = Pathogen::distinct('Numberofisolates')->sum('Numberofisolates'); 
+         $totalFacilities = Pathogen::distinct('Facility')->pluck('Facility')->count(); 
+         $facilityNames = Pathogen::distinct('Facility')->pluck('Facility'); 
+         $totalTypes =Pathogen::distinct('Specimentype')->pluck('Specimentype')->count(); 
+         $specimenNames =Pathogen::distinct('Specimentype')->pluck('Specimentype'); 
+         $totalPeriods =Pathogen::distinct('ReportingPeriod')->pluck('ReportingPeriod')->count(); 
+         $periods =Pathogen::distinct('ReportingPeriod')->pluck('ReportingPeriod'); 
+
+
+         \Log::info($totalIsolates); 
+           \Log::info($totalFacilities); 
+             \Log::info($totalTypes);    
+             \Log::info($totalPeriods); 
 
         $facilities_growth = SamplesWithGrowth::distinct('facility')->pluck('facility');
 
+
         $periods_growth =  SamplesWithGrowth::distinct('period')->where('facility',$facility_growth)->pluck('period');
+
+       
 
         // $organisms =  Pathogen::distinct('Organism')->where('Reporting Period',$facility)->pluck('Organism');    
         
@@ -149,7 +166,7 @@ class AMRController extends Controller
         // end isolate chart
 
                 // adding all this together
-                $All_data_for_amr_surveillance = array( 'facilities_growth' => $facilities_growth, 'series_growth'=> $data_growth, 'categories_growth'=>$periods_growth, 'facility_growth'=>$facility_growth)  + array( 'periods_isolates' => $periods_isolates, 'series_isolates'=> $data_isolates, 'categories_isolates'=>$organisms_isolates, 'facilities_isolates'=>$facilities_isolates,'period'=>$ReprtingPeriod,'facility'=>$facility);
+                $All_data_for_amr_surveillance = array( 'facilities_growth' => $facilities_growth, 'series_growth'=> $data_growth, 'categories_growth'=>$periods_growth, 'facility_growth'=>$facility_growth)  + array( 'periods_isolates' => $periods_isolates, 'series_isolates'=> $data_isolates, 'categories_isolates'=>$organisms_isolates, 'facilities_isolates'=>$facilities_isolates,'period'=>$ReprtingPeriod,'facility'=>$facility, 'totalPeriods'=>$totalPeriods, 'totalIsolates'=>$totalIsolates, 'totalTypes'=>$totalTypes, 'totalFacilities'=>$totalFacilities, 'facilityNames'=>$facilityNames, 'specimenNames'=>$specimenNames,'periods'=>$periods);
 
         return view('amr_surveillance', $All_data_for_amr_surveillance);
     }

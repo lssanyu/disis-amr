@@ -13,6 +13,9 @@ use Illuminate\Support\MessageBag;
 use Illuminate\Support\Facades\Input;
 use Events\SuccessfulLogin;
 
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
+
 class UserController extends Controller
 {   
 
@@ -48,6 +51,11 @@ class UserController extends Controller
     public function index()
     {   
         //dd(Auth::check());
+      //  auth()->user()->givePermissioTo();
+      
+        //dd(auth()->user());
+        
+        // dd(Auth::check());
         return view('log');
     }
 
@@ -61,10 +69,21 @@ class UserController extends Controller
     public function postLogin(Request $request)
     {
         request()->validate(['user_name' => 'required', 'password' => 'required',]);  
-        $credentials = $request->only('user_name', 'password');
+        $credentials = $request->only('user_name', 'password');      
+
         if (Auth::attempt($credentials)){
+            if(auth()->user()->user_name =='guest')
+            {            
+             if(auth()->user()->hasRole('guest')){
+                return redirect()->intended(route('sample_with_growth'));
+             }else{
+                 auth()->user()->assignRole('guest');
+              return redirect()->intended(route('sample_with_growth'));
+             }
+            }
+
             // event(new SuccessfulLogin());
-            return redirect()->intended(route('amr_surveillance')); 
+            return redirect()->intended(route('home')); 
         }
 
         //Authentication Failed.
@@ -79,19 +98,19 @@ class UserController extends Controller
     {  
         request()->validate([
         'user_name' => 'required|unique:users,user_name',
-        'first_name' => 'required|min:5',
+        'first_name' => 'required',
         'last_name' =>'required',
         'email' => 'required|email|unique:users,email',
         'password'=> ['required', 'string', 'min:8','confirmed']]);
 
         $data = $request->all();
-            // \Log::info($data);
-        // dd($data);
+        \Log::info($data);
+         //dd($data);
 
         $userData = User::all();
         // dd($userData);
-        $check = $this->createUser($data);
-        return Redirect::to("/registration")->withSuccess('User successfuly created');
+        self::createUser($data);
+        return Redirect::to("/")->withSuccess('User successfuly created');
     }
 
      //===========================Register new user=================================
@@ -108,6 +127,20 @@ class UserController extends Controller
       ]);
     }
     //===========================Create user=================================
+
+
+   /*==========================Assign Role===================================*/
+    // public function assignRole()
+    // {   
+    //     // $user = User::distinct('username')->where('username', 'guest')->get();
+        
+
+    //     // dd($user);
+
+    //     //Log::Info($user);
+         
+    //     return view('log');
+    // }
 
    //===========================Logout=================================
     public function logout() {

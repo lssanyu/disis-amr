@@ -23,7 +23,7 @@
     <div class="container-fluid card main-container" style="padding-top: 10%;">
 <center>
 <div class="card align-items-center" style="width: 30rem;   padding: 10px;">
-  <div class="card-title row"><div class="col"><img src="assets/img/mou.jpeg" style="width: 3rem;  height: 3rem;"></div><div class="col"><h3>LOGIN</h3></div><div class="col"><img style="width: 3rem;  height: 3rem;" src="assets/img/IDILogo.png"></div></div>
+  <div class="card-title row"><div class="col"><img src="assets/img/mou.jpeg" style="width: 4rem;  height: 4rem;"></div></div>
     <form action="{{url('post-login')}}" method="POST" id="msform">
      {{ csrf_field() }}
 
@@ -37,15 +37,11 @@
 
       @if (Session::has('error'))
         <div class="form-label-group">
-          <span class="error">
+          <span class="error" style="color: red;">
             {{ session('error') }}
           </span>
         </div>
       @endif
-
-         {{-- <div class="row icon-image">
-        <img class="login-icon" src="assets/img/default-avatar.png" style="width:5vh;"/>
-        </div> --}}
         <div class="row logic"> 
           <input type="text" name="user_name" placeholder="Username" value="{{ old('user_name') }}"  />
           @if ($errors->has('user_name'))
@@ -61,9 +57,9 @@
         <div class="row logic">
         <input type="submit" name="submit" class="submit action-button" value="Login" />
       </div>
-        <div class="text-center" style="margin:2vh;">
+        <!-- <div class="text-center" style="margin:2vh;">
           <a class="small" href="{{url('registration')}}">Register</a>
-        </div>
+        </div> -->
     </form>
   </div>
   </center>

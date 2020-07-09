@@ -8,26 +8,21 @@ use Illuminate\Http\Response;
 use Redirect;
 
 
-
-
-
 class AH_IsolatesController extends Controller {
 
 public function __construct()
     {
         $this->middleware('auth');
-    }
-    
-	public function getDefaultData(){ 
+    }    
 
-	$district = "Wakiso";
-	//select the facilities available
+
+/*============Load Default Data P ================*/
+public function getDefaultData(){ 
 
   	$districts = AH_OrganismsIsolated::distinct('district')->pluck('district'); 
 
-	$organisms =  AH_OrganismsIsolated::distinct('organism')->where('district',$district)->pluck('organism');	
-	
-		//select Organism 
+	$organisms =  AH_OrganismsIsolated::distinct('organism')->pluck('organism');
+		
 		$specimenNamesArray =array();
 		$data = array();
 		$series_names =array();
@@ -39,32 +34,67 @@ public function __construct()
 					foreach($organisms as $org){						
 
 						$result= AH_OrganismsIsolated::where([
-							['organism',$org],
-							['district',$district]							
+							['organism',$org]														
 							])->get();
 
 						$numberOfRows = $result->count();						
 
 							if($numberOfRows>0){									
 
-								$value = $result->pluck('numberisolates');	
-													  
-								 $number = $value[0];
+								$value = $result->sum('numberisolates');												  
 							}
 						
-						array_push($series_data, $number);					
+						array_push($series_data, $value);
 												
-					}
-					
+					}		
 
-					\Log::info($series_data);
-				
-				 return view('ah_isolateschart', array( 'districts' => $districts, 'series'=> $series_data, 'categories'=>$organisms,'district'=>$district));
-
-			}
+									
+				 return view('ah_isolateschart', array( 'districts' => $districts, 'series'=> $series_data, 'categories'=>$organisms));
+}
 
 
-	public function loadDataPerDistrict(){ 
+/*============Load Data for all  Districts ================*/
+public function getAllData(){ 
+
+  	$districts = AH_OrganismsIsolated::distinct('district')->pluck('district'); 
+
+	$organisms =  AH_OrganismsIsolated::distinct('organism')->pluck('organism');
+		
+		$specimenNamesArray =array();
+		$data = array();
+		$series_names =array();
+		                
+                     $series_data =array();
+
+                     $number=0;
+
+					foreach($organisms as $org){						
+
+						$result= AH_OrganismsIsolated::where([
+							['organism',$org]														
+							])->get();
+
+						$numberOfRows = $result->count();						
+
+							if($numberOfRows>0){									
+
+								$value = $result->sum('numberisolates');												  
+							}
+						
+						array_push($series_data, $value);
+												
+					}		
+			
+				 
+				 return response()->json(array('series' => $series_data, 'categories'=> $organisms));
+	
+
+}
+
+/*============Load Data Per District ================*/
+
+
+public function loadDataPerDistrict(){ 
 
 	$district = request()->district;
 	//select the facilities available
@@ -106,9 +136,7 @@ public function __construct()
 
 				  return response()->json(array('series' => $series_data, 'categories'=> $organisms));
 
-			}
-
-
+		}
 
 
 }

@@ -5,131 +5,168 @@ namespace App\Http\Controllers;
 use App\Models\Pathogen;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 use Redirect;
+use Log;
 
 
 
 class HH_IsolatesController extends Controller {
 	
 public function __construct()
-    {
-        $this->middleware('auth');
+    {       
+        // $this->middleware(['auth', 'permission:view amr|view resistance|register users|edit users|delete users']);
     }
 
+/*============Load Default Graph ======================================================*/
 public function getDefaultData()
 { 
 
-	$ReprtingPeriod = 'Jan-Mar 19';
-	$facility = 'Arua RRH';
-
   	$periods = Pathogen::distinct('ReportingPeriod')->pluck('ReportingPeriod');	
-  	$facilities = Pathogen::distinct('facility')->pluck('facility');
-		
-	$organisms =  Pathogen::distinct('Organism')->where([
-			['ReportingPeriod',$ReprtingPeriod],
-			['Facility',$facility]
-			])->pluck('Organism');
-	
-		//select Organism 
+  	$facilities = Pathogen::distinct('facility')->pluck('facility');		
+	$organisms =  Pathogen::distinct('Organism')->pluck('Organism');
+	$specimenTypes = Pathogen::distinct('Specimentype')->pluck('Specimentype');		
+			
 		$specimenNamesArray =array();
 		$data = array();
-		$series_names =array();
-
-		$Specimen_result = Pathogen::distinct('Specimentype')->where('ReportingPeriod',$ReprtingPeriod)->pluck('Specimentype');		
+		$series_names =array();		
     
-                	for ($i=0; $i<count($Specimen_result); $i++) {   	
+                	for ($i=0; $i<count($specimenTypes); $i++) {   	
                 	          				
-					 $Specimen_ind = $Specimen_result[$i]; 
+						 $specimenType = $specimenTypes[$i]; 
 
-            		 array_push($series_names, $Specimen_result); 
-                  
-                     $series_data =array();
-
-					foreach($organisms as $org){						
-
-						$result= Pathogen::where([
-							['Organism',$org],
-							['ReportingPeriod',$ReprtingPeriod],
-							['Specimentype',$Specimen_ind]
-							])->get();
-
-						$numberOfRows = $result->count();						
-							if($numberOfRows=0){
-								$specimen_value = 0;	
-							}else{
-
-								$specimen_value = $result->pluck('Numberofisolates');					  
-								 
-							}						
-						
-						array_push($series_data, $specimen_value);
-												
-					}
-
-					$data[] = array("name"=>$Specimen_ind, "data"=>$series_data);
-				} 			
-
-
-				 return view('hh_isolateschart', array( 'periods' => $periods, 'series'=> $data, 'categories'=>$organisms, 'facilities'=>$facilities,'facility'=>$facility, 'period'=>$ReprtingPeriod));
-}
-
-
-public function loadDataForSpecificQuarter() 
-	{	  
-
-		  	$organisms = [];
-			$selectedP =  request()->rPeriod;
-			$facility =  request()->facility;				
-
-	        $ReprtingPeriod = str_replace('%20',' ',$selectedP);   		
-			
-			$organisms =  Pathogen::distinct('Organism')->where([
-				['ReportingPeriod',$ReprtingPeriod],
-				['Facility',$facility]
-				])->pluck('Organism');
-			
-			//select specimen
-			$specimenNamesArray =array();
-			$data = array();
-			$series_names =array();
-			
-			$Specimen_result = Pathogen::distinct('Specimentype')->where('ReportingPeriod',$ReprtingPeriod)->pluck('Specimentype');		    
-	                	for ($i=0; $i<count($Specimen_result); $i++) {   	
-	                	          				
-						 $Specimen_ind = $Specimen_result[$i]; 
-
-	            		 array_push($series_names, $Specimen_result); 
+	            		 array_push($series_names, $specimenTypes); 
 	                  
 	                     $series_data =array();
 
 						foreach($organisms as $org){						
 
 							$result= Pathogen::where([
-								['Organism',$org],
-								['ReportingPeriod',$ReprtingPeriod],
-								['Specimentype',$Specimen_ind]
+								['Organism',$org],							
+								['Specimentype',$specimenType]
 								])->get();
 
-							$numberOfRows = $result->count();			
-
+							$numberOfRows = $result->count();						
 								if($numberOfRows=0){
 									$specimen_value = 0;	
 								}else{
 
-									$specimen_value = $result->pluck('Numberofisolates');					  
+									$specimen_value = $result->sum('Numberofisolates');
 									 
 								}						
 							
-							array_push($series_data, $specimen_value);												
+							array_push($series_data, $specimen_value);
+													
 						}
 
-						$data[] = array("name"=>$Specimen_ind, "data"=>$series_data);
-					} 
-					\Log::info($facility);				
+					$data[] = array("name"=>$specimenType, "data"=>$series_data);
+				} 					
+			 
+
+				return view('hh_isolateschart', array( 'periods' => $periods, 'series'=> $data, 'categories'=>$organisms, 'facilities'=>$facilities));
+}
+
+/*============Get Combined data ======================================================*/
+
+public function getAllData()
+{ 
+
+  	$periods = Pathogen::distinct('ReportingPeriod')->pluck('ReportingPeriod');	
+  	$facilities = Pathogen::distinct('facility')->pluck('facility');		
+	$organisms =  Pathogen::distinct('Organism')->pluck('Organism');
+	$specimenTypes = Pathogen::distinct('Specimentype')->pluck('Specimentype');		
+			
+		$specimenNamesArray =array();
+		$data = array();
+		$series_names =array();		
+    
+                	for ($i=0; $i<count($specimenTypes); $i++) {   	
+                	          				
+						 $specimenType = $specimenTypes[$i]; 
+
+	            		 array_push($series_names, $specimenTypes); 
+	                  
+	                     $series_data =array();
+
+						foreach($organisms as $org){						
+
+							$result= Pathogen::where([
+								['Organism',$org],							
+								['Specimentype',$specimenType]
+								])->get();
+
+							$numberOfRows = $result->count();						
+								if($numberOfRows=0){
+									$specimen_value = 0;	
+								}else{
+
+									$specimen_value = $result->sum('Numberofisolates');
+									 
+								}						
+							
+							array_push($series_data, $specimen_value);
+													
+						}
+
+					$data[] = array("name"=>$specimenType, "data"=>$series_data);
+				}			
+
+				return response()->json(array('series' => $data, 'categories'=> $organisms));
+}
+
+/*================================Load Specific Data ======================================*/
+
+public function loadDataForSpecificQuarter() 
+	{ 
+		  	$organisms = [];
+			$selectedP =  request()->rPeriod;
+			$facility =  request()->facility;
+		
+	        $ReprtingPeriod = str_replace('%20',' ',$selectedP);   		
+			
+			$organisms =  Pathogen::distinct('Organism')->where([
+				['ReportingPeriod',$ReprtingPeriod],
+				['Facility',$facility]
+				])->pluck('Organism');			
+			
+			$data = array();			
+			
+			$specimenTypes = Pathogen::distinct('Specimentype')->where([['Facility',$facility],['ReportingPeriod',$ReprtingPeriod]])->pluck('Specimentype');						    
+	                	
+	                		foreach($specimenTypes as $speci){		                	          				
+							
+	                			 $SpecimenType = $speci;		            		
+		                  
+		                     	 $series_data =array();
+
+								foreach($organisms as $org){						
+
+									$result= Pathogen::where([
+										['Organism',$org],
+										['ReportingPeriod',$ReprtingPeriod],
+										['Specimentype',$SpecimenType],
+										['Facility',$facility]
+										])->get();
+
+									$numberOfRows = $result->count();			
+
+										if($numberOfRows=0){
+											$specimen_value = 0;	
+										}else{
+
+											$specimen_value = $result->pluck('Numberofisolates');		  
+											 
+										}						
+									
+									array_push($series_data, $specimen_value);												
+								}
+
+								$data[] = array("name"=>$SpecimenType, "data"=>$series_data);
+					}							
 
 	 			return response()->json(array('series' => $data, 'categories'=> $organisms));
-			      
-			
+			 			
 	}
 
 	   

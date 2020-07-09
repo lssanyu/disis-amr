@@ -9,9 +9,13 @@ body{
 }
 
 /*----------multi-level-accordian-menu------------*/
+.navbar-mainbg_in{
+	padding: 2px;
 
+	background-color: #fff;
+}
 .navbar-mainbg{
-	background-color: #182579;
+	background-color: #00bfff;
 	padding: 0px;
 	margin-bottom: 10px;
 	left: 0px;
@@ -36,7 +40,7 @@ body{
 	border-radius: .2rem;
 }
 #navbarSupportedContent ul li a{
-	color: rgba(255,255,255,0.5);
+	color: #000;
     text-decoration: none;
     font-size: 14px;
     display: block;
@@ -46,8 +50,8 @@ body{
     position: relative;
 }
 #navbarSupportedContent>ul>li.active>a{
-	color: #182579;
-	background-color: transparent;
+	color: #fff;
+	background-color: #00bfff;
 	transition: all 0.7s;
 }
 #navbarSupportedContent a:not(:only-child):after {

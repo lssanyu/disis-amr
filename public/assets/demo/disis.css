@@ -1,3 +1,22 @@
+.amr-site-map{
+  width: 37rem;
+  height: 35rem;
+}
+.container-fluid{
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    position: relative;
+    margin-left: auto;
+}
+dd{
+  text-indent: 2%;
+}
+ul {
+    list-style-type: none;
+}
+}
 .dropbtn {
   color: black;
   font-size: 16px;
@@ -102,7 +121,7 @@ body, html{
   margin-right: 15px !important;
 }
 .clearfooter, .clear-div{
-  height: 10px;
+  height: 20px;
   clear: both;
 }
 .col-sm-12{
@@ -118,7 +137,7 @@ footer.footer{
   font-size: 12px;
   padding: 12px;
   margin-right: 15px;
-  background-color: #182579;
+  background-color: #0a90d4;
   left: 0px;
   right: 0px;
   z-index: 4;

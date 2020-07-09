@@ -76,17 +76,10 @@
             borderWidth: 0
         }
     },
-    legend: {
-        layout: 'vertical',
-        align: 'right',
-        verticalAlign: 'top',
-        x: -40,
-        y: 80,
-        floating: true,
-        borderWidth: 1,
-        backgroundColor:
-            Highcharts.defaultOptions.legend.backgroundColor || '#FFFFFF',
-        shadow: true
+    legend: {    
+        align: 'center',
+        horizontalAlign: 'left',
+        layout: 'horizontal'
     },
     credits: {
         enabled: false
@@ -162,17 +155,10 @@
             borderWidth: 0
         }
     },
-    legend: {
-        layout: 'vertical',
-        align: 'right',
-        verticalAlign: 'top',
-        x: -40,
-        y: 80,
-        floating: true,
-        borderWidth: 1,
-        backgroundColor:
-            Highcharts.defaultOptions.legend.backgroundColor || '#FFFFFF',
-        shadow: true
+     legend: {    
+        align: 'center',
+        horizontalAlign: 'left',
+        layout: 'horizontal'
     },
     credits: {
         enabled: false

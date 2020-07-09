@@ -6,21 +6,23 @@
     flex-direction: column;
     min-width: 0;
     word-wrap: break-word;
-    background-color: rgb(35, 52, 125);
+    background-color: #fff;
     background-clip: border-box;
     border: 1px solid rgba(0,0,0,.125);
     border-radius: .25rem;
 }
 .login-sidebar{
-  background-color: rgb(35, 52, 125);
+  background-color: #fff;
 }
-.main-sidebar{
+.main-sidebars{
 	/*border: 1px solid red;*/
 	min-height: 58rem;
 	position: absolute;
-	background-color: rgb(35, 52, 125);
-	width: 17%; 
-	float: left;
+	background-color:#fff;
+	/*width: 17%; */
+	/*float: left;*/
+  border: 1px solid rgba(0,0,0,.125);
+  border-bottom: none;
 }
 .side-title{
  color: #343a40;
@@ -46,7 +48,7 @@
 .dropdown-container{
   display: none;
   padding-left: 8px;
-	background-color: rgb(35, 52, 125);
+	background-color: #fff;
 	left: 120px
 
 }
@@ -72,7 +74,7 @@
   padding: 6px 8px 6px 16px;
   text-decoration: none;
   font-size: 15px;
-  color: #fff;
+  color: #000;
   display: block;
   border: none;
   background: none;
@@ -85,13 +87,13 @@
 
 /* On mouse-over */
 .sidenav a:hover, .dropdown-btn:hover {
-  color: #f1f1f1;
+  color: #000;
 }
 
 
 /* Add an active class to the active dropdown button */
 .active {
-  color: white;
+  color: blue;
 }
 
 /* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
@@ -105,15 +107,18 @@
 ul.dropdown-container {
   margin-left: 0px;
   padding-left: 0px;
+  font-size: 13;
+  line-height: 2;
+
  }
-ul.dropdown-container li a p{
- color: #fff;
+ul.dropdown-container li animation: {
+ color: #000;
  text-decoration: none;
  margin-left: 15px;
  /*font-family: cursive;*/
 }
 ul.dropdown-container li a:hover{
-  color: #182579;
+  color: #fff;
   text-decoration: none;
  }
  ul.dropdown-container li:hover{
@@ -121,17 +126,63 @@ ul.dropdown-container li a:hover{
   list-style-type: none;
   background-color: #4E4E50;
  }
- ul.dropdown-container li a p{
+ ul.dropdown-container li a{
   height: 2.4rem;
   padding: 9px 0px 0px 10px;
-  margin: 0px 0px 0px 20px;
+  margin: 0px 0px 0px 0px;
+  font-size: 13.5px;
  }
  ul.dropdown-container li{
   padding-top: 0px;
   margin-top: 0px;
   padding-bottom: 0px;
   margin-bottom: 0px;
+  border-bottom: solid 1px whitesmoke;
+
  }
 .bc{
   background-color: red;
+}
+:not(.layout-fixed) {
+  .main-sidebar {
+    height: inherit;
+    min-height: 100%;
+    position: absolute;
+    
+  }
+}
+
+.layout-fixed {
+  .brand-link {
+    width: $sidebar-width;
+  }
+
+.main-sidebars {
+  bottom: 0;
+  float: none;
+  height: 120vh;
+  left: 0;
+  position: fixed;
+}
+button.dropbtn{
+    color: #2980B9;
+    border: 1px;
+    text-decoration: none;
+    float: none;
+    color: black;
+    min-width: 5rem;
+    background-color: #fff;
+}
+.dropbtn:hover, .dropbtn:focus {
+    color: #2980B9;
+    border: none;
+    text-decoration: none;
+}
+.sidebar {
+    height: calc(100% - (3.5rem + 1px));
+    overflow-y: auto;
+    padding-bottom: 0;
+    padding-left: .5rem;
+    padding-right: .5rem;
+    padding-top: 0;
 }

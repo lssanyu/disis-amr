@@ -24,15 +24,15 @@
 <center style="padding-top: 4%;">
 <div class="card align-items-center" style="width: 30rem;  top: 3rem; padding: 10px;">
 
-    <form id="msform" action="{{url('/post-registration')}}" method="post">
+    <form action="{{url('post-registration')}}" method="POST" id="msform" >
       {{ csrf_field() }}
       <div class="card-title row"><div class="col"><img src="assets/img/mou.jpeg" style="width: 3rem;  height: 3rem;"></div><div class="col"><h3>REGISTRATION</h3></div><div class="col"><img style="width: 3rem;  height: 3rem;" src="assets/img/IDILogo.png"></div></div>
         <h5 class="fs-title">Account Credentials</h5>
       <!--  <h3 class="fs-subtitle">Access details</h3> -->
       <div class="row logic"> 
         <input type="text" name="user_name" placeholder="Username" value="{{ old('user_name') }}" />
-          @if ($errors->has('username'))
-              <span class="error logic">{{ $errors->first('username') }}</span>
+          @if ($errors->has('user_name'))
+              <span class="error logic">{{ $errors->first('user_name') }}</span>
           @endif  
         </div>
         <div class="row logic"> 
@@ -50,7 +50,7 @@
         <h5 class="fs-title">Personal Details</h5>
         <div class="row logic"> 
         <input type="text" name="first_name" placeholder="First Name" value="{{ old('first_name') }}"/>
-        @if ($errors->has('firstname'))
+        @if ($errors->has('first_name'))
               <span class="error logic">{{ $errors->first('first_name') }}</span>
           @endif 
         </div>

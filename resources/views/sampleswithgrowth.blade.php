@@ -4,10 +4,10 @@
 <div class="card " style="max-width: 10.3rem; padding: 0.21rem; margin-bottom: 0.3rem;">
       <table>
         <tr>
-            <td>
-                <!-- <label class="form-control-sm" for="period">Select Facility:</label> -->
+            <td>              
                 <select name="facility" class="form-control-sm" id="facility">
                     <option  value="">--- Select Facility---</option>
+                     <option  value="">All Facilities</option>
                     @foreach ($facilities as $key => $value)
                         <option value="{{ $key }}">{{ $value }}</option>
                     @endforeach
@@ -31,10 +31,10 @@
 <script type="text/javascript">
     Highcharts.chart('container', {
     chart: {
-        type: 'bar'
+        type: 'column'
     },
     title: {
-        text:'Number of Samples with Growth For <?php echo $facility; ?>'
+        text:'Number of Samples with Growth For All Facilities'
     },
 
     xAxis: {
@@ -57,23 +57,16 @@
         valueSuffix: ' isolate(s)'
     },
     plotOptions: {
-        bar: {
+        column: {
             dataLabels: {
                 enabled: true
             }
         }
     },
-    legend: {
-        layout: 'vertical',
-        align: 'right',
-        verticalAlign: 'top',
-        x: -40,
-        y: 80,
-        floating: true,
-        borderWidth: 1,
-        backgroundColor:
-            Highcharts.defaultOptions.legend.backgroundColor || '#FFFFFF',
-        shadow: true
+    legend: {    
+        align: 'center',
+        horizontalAlign: 'left',
+        layout: 'horizontal'
     },
     credits: {
         enabled: false
@@ -85,10 +78,17 @@
 
 <script type="text/javascript">
      $('#facility').on('change',function(){   
-        var selectedFty = $("#facility option:selected").text();      
+        var selectedFty = $("#facility option:selected").text(); 
+         var UrlStr;        
+            if(selectedFty =='All Facilities'){
+                UrlStr = "{{url('allsampleswithgrowth')}}";
+            }else{
+                UrlStr = "{{url('loadDataPerFacility')}}";
+            }
+
             
           $.ajax({
-                    url: "{{url('loadDataPerFacility')}}",
+                    url: UrlStr,
                     type: 'GET',
                     data: {'facility': selectedFty},
                     dataType: 'text',
@@ -98,7 +98,7 @@
                         var obj  =  JSON.parse(data); 
     Highcharts.chart('container', {
     chart: {
-        type: 'bar'
+        type: 'column'
     },
     title: {
         text:'Number of Samples with Growth For '+selectedFty
@@ -124,23 +124,16 @@
         valueSuffix: ' isolate(s)'
     },
     plotOptions: {
-        bar: {
+        column: {
             dataLabels: {
                 enabled: true
             }
         }
     },
-    legend: {
-        layout: 'vertical',
-        align: 'right',
-        verticalAlign: 'top',
-        x: -40,
-        y: 80,
-        floating: true,
-        borderWidth: 1,
-        backgroundColor:
-            Highcharts.defaultOptions.legend.backgroundColor || '#FFFFFF',
-        shadow: true
+     legend: {    
+        align: 'center',
+        horizontalAlign: 'left',
+        layout: 'horizontal'
     },
     credits: {
         enabled: false

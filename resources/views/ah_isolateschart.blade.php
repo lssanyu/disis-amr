@@ -1,13 +1,14 @@
 @extends('layouts.app') 
 @section('content')
 
-        <div class="card " style="max-width: 10.6rem; padding: 0.21rem; margin-bottom: 0.3rem;">
+        <div class="card " style="max-width: 13rem; padding: 0.21rem; margin-bottom: 0.3rem;">
               <table>
                 <tr>
                     <td>
                         <!-- <label class="form-control-sm" for="period">Select District:</label> -->
                         <select name="district" class="form-control-sm" id="district">
-                            <option  value="">--- Select District ---</option>
+                            <option  value="">- Select Surveillance Site -</option>
+                             <option  value="">All</option>
                             @foreach ($districts as $key => $value)
                             <option value="{{ $key }}">{{ $value }}</option>
                             @endforeach
@@ -24,7 +25,7 @@
         {{-- graph section appears here --}}
     </div>
     <p class="highcharts-description">
-       This graph represents the number of Isolates found in each organism for each district.
+       <!-- This graph represents the number of Isolates found in each organism for each district. -->
     </p>
 </figure>
 </div>
@@ -35,7 +36,7 @@
         type: 'column'
     },
     title: {
-        text: 'Animal Health Orgnisms Isolated for <?php echo $district; ?>  District '
+        text: 'Animal Health Orgnisms Isolated for all the Surveillance Sites '
     },
 
     xAxis: {
@@ -65,23 +66,16 @@
             borderWidth: 0
         }
     },
-    legend: {
-        layout: 'vertical',
-        align: 'right',
-        verticalAlign: 'top',
-        x: -40,
-        y: 80,
-        floating: true,
-        borderWidth: 1,
-        backgroundColor:
-            Highcharts.defaultOptions.legend.backgroundColor || '#FFFFFF',
-        shadow: true
+     legend: {    
+        align: 'center',
+        horizontalAlign: 'left',
+        layout: 'horizontal'
     },
     credits: {
         enabled: false
     },
     series:[{
-            name: 'Total Isolates Per District',
+            name: 'Total Isolates Per Surveillance Site',
             data: <?php echo json_encode($series ?? '', JSON_NUMERIC_CHECK); ?>
         }]
 
@@ -90,9 +84,20 @@
 </script>
 <script type="text/javascript">
      $('#district').on('change',function(){   
-        var selectedDist = $("#district option:selected").text();  
+        var selectedDist = $("#district option:selected").text();
+
+          var UrlStr;  
+                
+            if(selectedDist =='All'){
+
+                UrlStr = "{{url('allAhIsolates')}}";
+                selectedDist= 'All Surveillance Sites'; 
+            }else{
+                UrlStr = "{{url('loadDataPerDistrict')}}";
+            }
+         
           $.ajax({
-                    url: "{{url('loadDataPerDistrict')}}",
+                    url: UrlStr,
                     type: 'GET',
                     data: {'district': selectedDist},
                     dataType: 'text',
@@ -105,7 +110,7 @@
         type: 'column'
     },
     title: {
-        text: 'Animal Health Orgnisms Isolated for '+selectedDist +' District'
+        text: 'Animal Health Orgnisms Isolated for '+selectedDist 
     },
 
     xAxis: {
@@ -135,23 +140,16 @@
             borderWidth: 0
         }
     },
-    legend: {
-        layout: 'vertical',
-        align: 'right',
-        verticalAlign: 'top',
-        x: -40,
-        y: 80,
-        floating: true,
-        borderWidth: 1,
-        backgroundColor:
-            Highcharts.defaultOptions.legend.backgroundColor || '#FFFFFF',
-        shadow: true
+    legend: {    
+        align: 'center',
+        horizontalAlign: 'left',
+        layout: 'horizontal'
     },
     credits: {
         enabled: false
     },
     series:[{
-            name: 'Total Isolates Per District',
+            name: 'Total Isolates Per Surveillance Site',
             data: obj.series
         }]
 
